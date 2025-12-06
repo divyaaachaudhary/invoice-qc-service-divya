@@ -95,6 +95,8 @@ Each rule produces clear error messages like:
 PDFs → Extraction Module → invoice.json → Validation Module → Results → CLI/API/UI
 
  3.1 Folder Structure
+
+ 
  <img width="330" height="373" alt="Image" src="https://github.com/user-attachments/assets/d0dfc480-1b71-4697-b8c2-df0ea3d1d234" />
 
  ---
@@ -193,3 +195,21 @@ Components:
 ---
 
 ### 3.3 Data Flow (ASCII Diagram)
+
+      ┌──────────────────┐
+      │      PDFs        │
+      └────────┬─────────┘
+               │
+               ▼
+    ┌────────────────────────┐
+    │   Extraction Module     │
+    │  (pdfplumber + regex)   │
+    └─────────┬──────────────┘
+              │ JSON Output
+              ▼
+    ┌────────────────────────┐
+    │     Validation Core     │
+    │ (schema + rules engine) │
+    └─────────┬──────────────┘
+              │ QC Results
+              
