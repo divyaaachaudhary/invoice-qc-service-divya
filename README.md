@@ -95,22 +95,100 @@ Each rule produces clear error messages like:
 PDFs → Extraction Module → invoice.json → Validation Module → Results → CLI/API/UI
 
  3.1 Folder Structure
- 
-├── invoice-project/
-│ ├── extractor.py # PDF → JSON extraction
-│ ├── validator.py # Validation engine
-│ ├── cli.py # CLI interface
-│ ├── api.py # FastAPI service
-│
-│
-├── frontend/ # React.js
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── UploadBox.jsx
-│ │ │ ├── InvoiceCard.jsx
-│ │ ├── api.js
-│ │ ├── App.jsx
-│ │ └── main.jsx
-│ └── package.json
-│
-└── README.md
+
+ ---
+
+### 3.2 Component Breakdown
+
+#### **1. Extraction Pipeline (PDF → JSON)**
+**Location:** `invoice_qc/extractor.py`
+
+Handles:
+- Reading PDF files using `pdfplumber`
+- Extracting full text from all pages
+- Identifying fields using regex + text heuristics:
+  - invoice number  
+  - dates  
+  - seller/buyer details  
+  - totals  
+- Parsing table-like sections for line items
+- Normalizing dates and numeric fields
+- Producing a clean structured invoice object
+
+If a field is missing, it is set to `null` and validated later.
+
+---
+
+#### **2. Validation Core (JSON → QC Results)**
+**Location:** `invoice_qc/validator.py`
+
+Responsibilities:
+- Schema completeness checks (invoice number, dates, names)
+- Format validation (date parsing, numeric fields)
+- Business rules:
+  - `net_total + tax_amount ≈ gross_total`
+  - Sum of line items ≈ net total
+- Anomaly detection:
+  - duplicates  
+  - negative totals  
+- Produces:
+  - per-invoice validation result
+  - aggregated summary with error counts
+
+---
+
+#### **3. CLI Tool**
+**Location:** `invoice_qc/cli.py`
+
+Provides a command-line interface to run the system:
+
+- `extract` → PDFs → JSON
+- `validate` → JSON → report
+- `full-run` → end-to-end extraction + validation
+
+Features:
+- Argument parsing with `argparse`
+- Human-readable summary output
+- Ability to save JSON and report files
+- Non-zero exit code for invalid invoices (pipeline-friendly)
+
+---
+
+#### **4. FastAPI Backend**
+**Location:** `invoice_qc/api.py`
+
+Exposes endpoints:
+
+| Method | Route | Description |
+|--------|--------|-------------|
+| GET | `/health` | Health check |
+| POST | `/validate-json` | Validate invoice JSON payload |
+| POST | `/extract-and-validate-pdfs` | Upload PDFs → extract → validate |
+
+Used by:
+- frontend UI  
+- external services  
+- automated document pipelines  
+
+---
+
+#### **5. React Frontend (Bonus)**
+**Location:** `frontend/`
+
+A lightweight QC console that allows users to:
+
+- Upload PDFs  
+- Call backend to extract + validate  
+- Display:
+  - invoice fields  
+  - raw JSON extraction  
+  - valid/invalid status  
+  - error messages  
+
+Components:
+- `UploadBox` — File upload + submit button  
+- `InvoiceCard` — Shows invoice + validation results  
+
+---
+
+### 3.3 Data Flow (ASCII Diagram)
