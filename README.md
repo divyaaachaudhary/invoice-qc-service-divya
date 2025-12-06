@@ -128,7 +128,3 @@ invoice-project/
 ```json
 <img width="758" height="592" alt="image" src="https://github.com/user-attachments/assets/d06c4e7d-971f-4ea5-85df-a2e1451745ab" />
 
-# 5. Validation Engine
-
-
-
