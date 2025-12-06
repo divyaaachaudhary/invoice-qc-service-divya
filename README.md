@@ -94,37 +94,23 @@ Each rule produces clear error messages like:
 
 PDFs → Extraction Module → invoice.json → Validation Module → Results → CLI/API/UI
 
-invoice-project/
+ 3.1 Folder Structure
+ 
+├── invoice-project/
+│ ├── extractor.py # PDF → JSON extraction
+│ ├── validator.py # Validation engine
+│ ├── cli.py # CLI interface
+│ ├── api.py # FastAPI service
 │
-│── extractor.py        # PDF → JSON
-│── validator.py        # Apply rules
-│── cli.py              # CLI interface
-│── api.py              # FastAPI service
 │
-├── frontend/                 # React UI
-│     ├── src/
-│     ├── package.json
-│     └── ...
-├── README.md
-
-
-
----
-
-# 4. Extraction Pipeline
-
-### -Libraries used: `pdfplumber`
-
-### ✔ Steps:
-1. Load PDF pages  
-2. Extract entire text  
-3. Use regex patterns to match fields  
-   - Invoice No → `(Invoice\s*(No|Number|#)[:]?\s*(\S+))`  
-   - Dates → `\d{2}[./-]\d{2}[./-]\d{4}`  
-4. Table-like parsing for line items  
-5. Return JSON with missing fields marked `null`  
-
-### -Output Example
-```json
-<img width="758" height="592" alt="image" src="https://github.com/user-attachments/assets/d06c4e7d-971f-4ea5-85df-a2e1451745ab" />
-
+├── frontend/ # React.js
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── UploadBox.jsx
+│ │ │ ├── InvoiceCard.jsx
+│ │ ├── api.js
+│ │ ├── App.jsx
+│ │ └── main.jsx
+│ └── package.json
+│
+└── README.md
