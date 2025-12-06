@@ -5,6 +5,7 @@ A complete end-to-end **Invoice Extraction & Quality Control System**, designed 
 This project processes invoice PDFs, extracts structured fields, validates them against business rules, and exposes both CLI and HTTP API interfaces.  
 A React-based frontend UI is also included for internal QC workflows.
 
+https://github.com/user-attachments/assets/8b250c96-7bf5-4818-9230-92d01ddf551d
 ---
 
 # 1. Overview
