@@ -212,4 +212,73 @@ Components:
     │ (schema + rules engine) │
     └─────────┬──────────────┘
               │ QC Results
-              
+
+---
+
+## 4. Setup & Installation
+
+This section explains how to set up the complete system, including the Python backend, FastAPI server, CLI tools, and React frontend.
+
+---
+
+### 4.1 Requirements
+
+- **Python 3.10+** (tested on Python 3.11 / 3.12 / 3.13)
+- **Node.js 18+** (for the React frontend)
+- Git
+
+---
+
+## 4.2 Setup-
+
+```bash
+git clone https://github.com/<your-username>/invoice-qc-service.git
+cd invoice-qc-service
+python -m venv venv
+pip install -r requirements.txt
+python api.py
+cd frontend
+npm install
+npm run dev
+```
+The frontend will start at:
+
+ -http://localhost:5173
+
+Make sure the FastAPI server is running at:
+
+-http://127.0.0.1:8000
+
+---
+## AI Usage Notes
+
+I used AI tools (ChatGPT, GitHub Copilot, and Cursor) during development to accelerate parts of the project.  
+Below is a clear summary of how AI supported the workflow.
+
+### -Tools Used
+- **ChatGPT** – for architecture guidance, regex suggestions, FastAPI scaffolding, and improving documentation.
+- **GitHub Copilot** – for inline code suggestions while writing Python and JavaScript.
+- **Cursor** – for refactoring, auto-completing repetitive code blocks, and quickly navigating large files.
+
+### -Parts Where AI Helped
+- Designing initial folder structure and project layout.
+- Generating early regex patterns for invoice number, dates, totals, etc.
+- Drafting the CLI skeleton using `argparse`.
+- Creating initial FastAPI endpoint structure and request/response formats.
+- Guiding the React component layout (UploadBox, InvoiceCard, JSON viewer).
+- Summarizing documentation and writing parts of the README quickly.
+- Suggesting validation rules and business logic ideas.
+
+---
+## Assumptions & Limitations
+
+### -Assumptions
+- PDFs are **text-based** (not scanned images). OCR was intentionally not implemented due to time constraints.
+- Invoice layout follows a **semi-structured format** with identifiable labels (e.g., “Invoice No”, “Total”, “Date”).
+- Currency is limited to a known set such as **INR, USD, EUR**.
+- Dates in invoices use common formats like `DD-MM-YYYY`, `DD/MM/YYYY`, or `YYYY-MM-DD`.
+- Line items appear in a **table-like format**, one per line.
+- The extraction logic focuses on the provided sample invoices and similar formats.
+
+
+
