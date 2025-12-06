@@ -6,6 +6,7 @@ This project processes invoice PDFs, extracts structured fields, validates them 
 A React-based frontend UI is also included for internal QC workflows.
 
 https://github.com/user-attachments/assets/8b250c96-7bf5-4818-9230-92d01ddf551d
+
 ---
 
 # 1. Overview
