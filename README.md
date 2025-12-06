@@ -234,7 +234,7 @@ This section explains how to set up the complete system, including the Python ba
 ## 4.2 Setup-
 
 ```bash
-git clone https://github.com/<your-username>/invoice-qc-service.git
+git clone https://github.com/divyaaachaudhary/invoice-qc-service-divya.git
 cd invoice-qc-service
 python -m venv venv
 pip install -r requirements.txt
